@@ -17,6 +17,8 @@ import { DashboardChart } from "@/components/dashboard/dashboard-chart";
 import { InventorySummary } from "@/components/dashboard/inventory-summary";
 import { RecentActivities } from "@/components/dashboard/recent-activities";
 import { LowStockAlert } from "@/components/dashboard/low-stock-alert";
+import { SalesChart } from "@/components/analytics/sales-chart";
+import { OperationsChart } from "@/components/analytics/operations-chart";
 
 export default function Home() {
   return (
@@ -24,7 +26,7 @@ export default function Home() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <div className="flex items-center gap-2">
-          <Button variant="outline">Export</Button>
+          <Button>Export</Button>
           <Button>Refresh Data</Button>
         </div>
       </div>
@@ -170,9 +172,7 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-80 flex items-center justify-center border border-dashed rounded-md">
-                <p className="text-muted-foreground">Sales data visualization will appear here</p>
-              </div>
+              <SalesChart />
             </CardContent>
           </Card>
         </TabsContent>
@@ -180,15 +180,13 @@ export default function Home() {
         <TabsContent value="operations" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Operational Metrics</CardTitle>
+              <CardTitle>Operations Analytics</CardTitle>
               <CardDescription>
-                Track warehouse operations and efficiency
+                View your warehouse operations performance
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-80 flex items-center justify-center border border-dashed rounded-md">
-                <p className="text-muted-foreground">Operations data visualization will appear here</p>
-              </div>
+              <OperationsChart />
             </CardContent>
           </Card>
         </TabsContent>

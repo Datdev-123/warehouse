@@ -25,6 +25,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DashboardChart } from "@/components/dashboard/dashboard-chart";
+import { InventoryChart } from "@/components/analytics/inventory-chart";
+import { ShippingChart } from "@/components/analytics/shipping-chart";
 
 export default function ReportsPage() {
   return (
@@ -34,7 +36,7 @@ export default function ReportsPage() {
         <div className="flex items-center gap-2">
           <Button variant="outline">
             <Download className="mr-2 h-4 w-4" />
-            Export
+            Export Report
           </Button>
           <Button>
             <RefreshCw className="mr-2 h-4 w-4" />
@@ -57,7 +59,7 @@ export default function ReportsPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Orders Completed</CardTitle>
+            <CardTitle className="text-sm font-medium">Completed Orders</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1,234</div>
@@ -160,9 +162,7 @@ export default function ReportsPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-[300px] flex items-center justify-center border border-dashed rounded-lg">
-                  <BarChart3 className="h-8 w-8 text-muted-foreground" />
-                </div>
+                <InventoryChart />
               </CardContent>
             </Card>
 
@@ -188,13 +188,11 @@ export default function ReportsPage() {
               <CardHeader>
                 <CardTitle>Delivery Performance</CardTitle>
                 <CardDescription>
-                  Shipping times and delivery rates
+                  On-time delivery rates by carrier
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-[300px] flex items-center justify-center border border-dashed rounded-lg">
-                  <LineChart className="h-8 w-8 text-muted-foreground" />
-                </div>
+                <ShippingChart />
               </CardContent>
             </Card>
 
@@ -207,7 +205,14 @@ export default function ReportsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {['FedEx', 'UPS', 'DHL', 'USPS'].map((carrier) => (
+                  {[
+                    'FedEx',
+                    'UPS',
+                    'DHL',
+                    'USPS',
+                    'Amazon Logistics',
+                    'OnTrac'
+                  ].map((carrier) => (
                     <div key={carrier} className="flex items-center gap-4">
                       <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                         <span className="text-xs font-medium">{carrier[0]}</span>

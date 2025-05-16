@@ -129,7 +129,7 @@ export default function Sidebar() {
             <Boxes className="h-5 w-5" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">Admin User</span>
+            <span className="text-sm font-medium text-muted-foreground">Admin User</span>
             <span className="text-xs text-muted-foreground">admin@waremanage.com</span>
           </div>
         </div>

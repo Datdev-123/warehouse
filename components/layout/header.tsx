@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <header className="bg-background border-b border-border h-16 flex items-center px-4 md:px-6">
       <div className="flex items-center gap-2 md:hidden">
-        <Button variant="ghost" size="icon" onClick={toggleSidebar}>
+        <Button variant="ghost" size="icon" className="text-foreground" onClick={toggleSidebar}>
           {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </Button>
       </div>
@@ -46,7 +46,7 @@ export default function Header() {
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative text-foreground">
                 <Bell size={20} />
                 <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-destructive" />
               </Button>

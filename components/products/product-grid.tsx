@@ -120,8 +120,33 @@ const products: Product[] = [
   },
 ];
 
-export function ProductGrid() {
+export function ProductGrid({ sortBy, filter }: { sortBy?: string, filter?: { category: string } }) {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+
+  // Lọc sản phẩm theo category nếu có filter
+  const filteredProducts = filter?.category && filter.category !== "all"
+    ? products.filter(product => product.category === filter.category)
+    : products;
+
+  // Sắp xếp sản phẩm lọc theo sortBy
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "name_asc":
+        return a.name.localeCompare(b.name);
+      case "name_desc":
+        return b.name.localeCompare(a.name);
+      case "price_asc":
+        return a.price - b.price;
+      case "price_desc":
+        return b.price - a.price;
+      case "stock_asc":
+        return a.stock - b.stock;
+      case "stock_desc":
+        return b.stock - a.stock;
+      default:
+        return a.name.localeCompare(b.name);
+    }
+  });
 
   const handleSelectProduct = (productId: string) => {
     if (selectedProducts.includes(productId)) {
@@ -146,7 +171,7 @@ export function ProductGrid() {
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {products.map((product) => (
+      {sortedProducts.map((product) => (
         <Card key={product.id} className="overflow-hidden transition-all hover:shadow-md">
           <div className="aspect-video relative overflow-hidden bg-muted">
             {product.thumbnail ? (

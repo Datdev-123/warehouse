@@ -113,34 +113,33 @@ const products: Product[] = [
   },
 ];
 
-export function ProductList() {
-  const [sortBy, setSortBy] = useState<keyof Product>("name");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+export function ProductList({ sortBy, filter }: { sortBy?: string, filter?: { category: string } }) {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
 
-  const sortedProducts = [...products].sort((a, b) => {
-    const valueA = a[sortBy];
-    const valueB = b[sortBy];
+  // Lọc sản phẩm theo category nếu có filter
+  const filteredProducts = filter?.category && filter.category !== "all"
+    ? products.filter(product => product.category === filter.category)
+    : products;
 
-    if (typeof valueA === "string" && typeof valueB === "string") {
-      return sortOrder === "asc"
-        ? valueA.localeCompare(valueB)
-        : valueB.localeCompare(valueA);
-    } else {
-      return sortOrder === "asc"
-        ? Number(valueA) - Number(valueB)
-        : Number(valueB) - Number(valueA);
+  // Sắp xếp sản phẩm lọc theo sortBy
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "name_asc":
+        return a.name.localeCompare(b.name);
+      case "name_desc":
+        return b.name.localeCompare(a.name);
+      case "price_asc":
+        return a.price - b.price;
+      case "price_desc":
+        return b.price - a.price;
+      case "stock_asc":
+        return a.stock - b.stock;
+      case "stock_desc":
+        return b.stock - a.stock;
+      default:
+        return a.name.localeCompare(b.name);
     }
   });
-
-  const handleSort = (column: keyof Product) => {
-    if (sortBy === column) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    } else {
-      setSortBy(column);
-      setSortOrder("asc");
-    }
-  };
 
   const handleSelectAll = () => {
     if (selectedProducts.length === products.length) {
@@ -187,7 +186,7 @@ export function ProductList() {
             <TableHead>
               <Button
                 variant="ghost"
-                onClick={() => handleSort("name")}
+                onClick={() => {}}
                 className="font-medium"
               >
                 Product
@@ -197,43 +196,16 @@ export function ProductList() {
             <TableHead>
               <Button
                 variant="ghost"
-                onClick={() => handleSort("category")}
+                onClick={() => {}}
                 className="font-medium"
               >
                 Category
                 <ArrowUpDown className="ml-2 h-3 w-3" />
               </Button>
             </TableHead>
-            <TableHead>
-              <Button
-                variant="ghost"
-                onClick={() => handleSort("price")}
-                className="font-medium"
-              >
-                Price
-                <ArrowUpDown className="ml-2 h-3 w-3" />
-              </Button>
-            </TableHead>
-            <TableHead>
-              <Button
-                variant="ghost"
-                onClick={() => handleSort("stock")}
-                className="font-medium"
-              >
-                Stock
-                <ArrowUpDown className="ml-2 h-3 w-3" />
-              </Button>
-            </TableHead>
-            <TableHead>
-              <Button
-                variant="ghost"
-                onClick={() => handleSort("status")}
-                className="font-medium"
-              >
-                Status
-                <ArrowUpDown className="ml-2 h-3 w-3" />
-              </Button>
-            </TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Stock</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>

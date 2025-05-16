@@ -34,9 +34,10 @@ export default function ScannerPage() {
     e.preventDefault();
     
     // Simulate scan result
+    const typeResult: "success" | "error" | "warning" = Math.random() > 0.3 ? "success" : Math.random() > 0.5 ? "error" : "warning";
     const result = {
       code: scanInput,
-      type: Math.random() > 0.3 ? "success" : Math.random() > 0.5 ? "error" : "warning",
+      type: typeResult,
       message: Math.random() > 0.3 
         ? "Item successfully scanned" 
         : Math.random() > 0.5 
