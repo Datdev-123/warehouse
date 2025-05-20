@@ -202,7 +202,7 @@ export function InventorySummary() {
                       </span>
                     </div>
                     <Progress
-                      value={(product.stock / product.maxStock) * 100}
+                      value={Math.min((product.stock / product.maxStock) * 100, 100)}
                       className="h-2"
                     />
                   </div>

@@ -211,7 +211,7 @@ export function InventoryGrid({
                       <span className="font-medium">{item.quantity}/{item.maxStock}</span>
                     </div>
                     <Progress
-                      value={(item.quantity / item.maxStock) * 100}
+                      value={Math.min((item.quantity / item.maxStock) * 100, 100)}
                       className="h-2"
                     />
                   </div>
