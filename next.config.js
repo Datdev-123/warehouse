@@ -1,15 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use WASM SWC binary instead of native
-  swcMinify: true,
-  experimental: {
-    swcLoader: true,
-    swcMinifyDebugOptions: {
-      compress: {
-        defaults: false
-      }
-    }
-  }
-}
+  output: 'export',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: { unoptimized: true },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
